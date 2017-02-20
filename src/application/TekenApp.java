@@ -26,12 +26,12 @@ public class TekenApp extends Application {
 	private File huidigBestand = null;
 	private Stage refStage;
 	
-	BorderPane bpane = new BorderPane();
+	BorderPane borderPane = new BorderPane();
 
 	public void start(Stage stage) {
 		refStage = stage;
-		VBox vb = new VBox();
-		MenuBar mb = new MenuBar();
+		VBox vbox = new VBox();
+		MenuBar menuBar = new MenuBar();
 		Menu menuBestand = new Menu("_Bestand");
 		MenuItem nieuwBestand = new MenuItem("_Nieuw");
 		nieuwBestand.setAccelerator(new KeyCodeCombination(KeyCode.N, KeyCombination.CONTROL_DOWN));
@@ -62,26 +62,26 @@ public class TekenApp extends Application {
 		});
 		
 		menuOpties.getItems().add(menuInstellingen);
-		mb.getMenus().addAll(menuBestand, menuOpties);
+		menuBar.getMenus().addAll(menuBestand, menuOpties);
 		
 		hetLint = new LintBox();
 		hetLint.setPrefWidth(430);
 		hetLint.setPrefHeight(50);
 		hetCanvas = new TekenCanvas(hetLint, 430, 300);
-		hetDialoog = new InstellingenDialoog(stage , 430, 300);
-		vb.getChildren().addAll(mb, hetLint);
-		bpane.setCenter(hetCanvas);
-		bpane.setPrefSize(430, 300);
-		bpane.setTop(vb);
+		hetDialoog = new InstellingenDialoog(stage);
+		vbox.getChildren().addAll(menuBar, hetLint);
+		borderPane.setCenter(hetCanvas);
+		borderPane.setPrefSize(430, 300);
+		borderPane.setTop(vbox);
 
-		Scene scene = new Scene(bpane);
+		Scene scene = new Scene(borderPane);
 		stage.setScene(scene);
 		stage.setTitle("TekenApp 2.0");
 		stage.show();
 	}
 	
 	private boolean afbeeldingOpslaan(boolean dialoogAltijdTonen) {
-		boolean b = true;
+		boolean imageSaved = false;
 		
 		if (huidigBestand == null || dialoogAltijdTonen) {
 		  FileChooser chooser = new FileChooser();
@@ -89,38 +89,25 @@ public class TekenApp extends Application {
 		    chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("PNG (*.png)", "*.png"));
 		    chooser.setInitialFileName("Naamloos.png");
 		    huidigBestand = chooser.showSaveDialog(refStage);
-		    if (huidigBestand != null) {
-		    	if (huidigBestand.getName().endsWith(".png")) {
-		        try {
-		        	SnapshotParameters params = new SnapshotParameters();
-		        	WritableImage img = hetCanvas.snapshot(params, null);
-		        	RenderedImage img2 = SwingFXUtils.fromFXImage(img, null);
-		        	ImageIO.write(img2, "png", huidigBestand);
-		        	b = true;
-		        	
-		        } catch (IOException ex) {
-		             System.out.println(ex.getMessage());
-		        }
-		    	}
-		    };
 		}
 		
 		if (huidigBestand != null) {
         	SnapshotParameters params = new SnapshotParameters();
         	WritableImage img = hetCanvas.snapshot(params, null);
         	RenderedImage img2 = SwingFXUtils.fromFXImage(img, null);
+        	imageSaved = true;
         	try {
 				ImageIO.write(img2, "png", huidigBestand);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		return b;
+		return imageSaved;
 	}
 
 	public void nieuwBestandAanmaken() {
 		hetCanvas = new TekenCanvas(hetLint, 430, 300);
-		bpane.setCenter(hetCanvas);
+		borderPane.setCenter(hetCanvas);
 	}
 
 	public static void main(String[] args) {

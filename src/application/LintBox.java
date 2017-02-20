@@ -14,81 +14,72 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class LintBox extends HBox {
-	public enum Vorm {
-		LIJN, RECHTHOEK, CIRKEL, PEN
-	};
-
-	ColorPicker cp = new ColorPicker();
-
+	ColorPicker colorPicker = new ColorPicker();
+	
 	public LintBox() {
-		cp.setPrefWidth(100);
-		cp.setValue(Color.BLACK);
+		colorPicker.setPrefWidth(100);
+		colorPicker.setValue(Color.BLACK);
 
-		FlowPane fp = new FlowPane();
-		fp.setVgap(20);
-		fp.setPrefWidth(150);
-		fp.setPadding(new Insets(5));
+		FlowPane flowPane = new FlowPane();
+		flowPane.setVgap(20);
+		flowPane.setPrefWidth(150);
+		flowPane.setPadding(new Insets(5));
 
 		ToggleGroup group = new ToggleGroup();
-		RadioButton rb1 = new RadioButton("Lijn");
-		rb1.setToggleGroup(group);
-		rb1.setSelected(true);
-		rb1.setPrefSize(85, 0);
-		RadioButton rb2 = new RadioButton("Cirkel");
-		rb2.setToggleGroup(group);
-		RadioButton rb3 = new RadioButton("Rechthoek");
-		rb3.setToggleGroup(group);
-		rb3.setPrefSize(85, 0);
-		RadioButton rb4 = new RadioButton("Pen");
-		rb4.setToggleGroup(group);
-		fp.getChildren().addAll(rb1, rb2, rb3, rb4);
+		RadioButton radioButton1 = new RadioButton("Lijn");
+		radioButton1.setToggleGroup(group);
+		radioButton1.setSelected(true);
+		radioButton1.setPrefSize(85, 0);
+		RadioButton radioButton2 = new RadioButton("Cirkel");
+		radioButton2.setToggleGroup(group);
+		RadioButton radioButton3 = new RadioButton("Rechthoek");
+		radioButton3.setToggleGroup(group);
+		radioButton3.setPrefSize(85, 0);
+		RadioButton radioButton4 = new RadioButton("Pen");
+		radioButton4.setToggleGroup(group);
+		flowPane.getChildren().addAll(radioButton1, radioButton2, radioButton3, radioButton4);
 
-		// Rectangles
-		int i = 0;
-		TilePane tp = new TilePane();
-		tp.setPadding(new Insets(5));
-		tp.setVgap(4);
-		tp.setHgap(4);
+		TilePane tilePane = new TilePane();
+		tilePane.setPadding(new Insets(5));
+		tilePane.setVgap(4);
+		tilePane.setHgap(4);
 
-		Rectangle rl = new Rectangle();
-		rl.setWidth(100);
-		rl.setHeight(22);
+		Rectangle currentColor = new Rectangle();
+		currentColor.setWidth(100);
+		currentColor.setHeight(22);
 
 		Rectangle[] r = new Rectangle[10];
-		Color[] c = { Color.BLACK, Color.WHITE, Color.RED, Color.ORANGE,
-				Color.YELLOW, Color.GRAY, Color.BLUE, Color.FIREBRICK,
-				Color.PURPLE, Color.GREEN };
-		for (i = 0; i < c.length && i < 10; i++) {
+		int i = 0;
+		Color[] colorList = { Color.BLACK, Color.WHITE, Color.RED, Color.ORANGE, Color.YELLOW, Color.GRAY, Color.BLUE, Color.FIREBRICK, Color.PURPLE, Color.GREEN };
+		
+		for (i = 0; i < colorList.length && i < 10; i++) {
 			r[i] = new Rectangle();
-			tp.getChildren().add(r[i]);
+			tilePane.getChildren().add(r[i]);
 			r[i].setWidth(25);
 			r[i].setHeight(25);
-			r[i].setFill(c[i]);
+			r[i].setFill(colorList[i]);
 
-			int hulp = i;
+			int number = i;
 			r[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
 				public void handle(MouseEvent t) {
-					cp.setValue(c[hulp]);
-					rl.setFill(c[hulp]);
+					colorPicker.setValue(colorList[number]);
+					currentColor.setFill(colorList[number]);
 				}
 			});
 		}
 
-		VBox vb = new VBox(2);
-		vb.setPadding(new Insets(5));
-		vb.getChildren().addAll(cp, rl);
-		this.getChildren().addAll(vb, tp, fp);
-		rl.setFill(cp.getValue());
+		VBox vbox = new VBox(2);
+		vbox.setPadding(new Insets(5));
+		vbox.getChildren().addAll(colorPicker, currentColor);
+		this.getChildren().addAll(vbox, tilePane, flowPane);
+		currentColor.setFill(colorPicker.getValue());
 
-		cp.setOnAction(e -> {
-			rl.setFill(cp.getValue());
+		colorPicker.setOnAction(e -> {
+			currentColor.setFill(colorPicker.getValue());
 		});
-
 	}
 
-	public Paint getKleur() {
-		return cp.getValue();
-
+	public Paint getColor() {
+		return colorPicker.getValue();
 	}
-
 }

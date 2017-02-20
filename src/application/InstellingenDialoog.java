@@ -13,53 +13,45 @@ import javafx.stage.StageStyle;
 
 public class InstellingenDialoog extends Stage {
 	private Stage refStage;
-	TextField tf1 = new TextField();
-	TextField tf2 = new TextField();
-	Button annuleren = new Button("Annuleren");
-	Button ok = new Button("Ok");
+	TextField topTextField = new TextField();
+	TextField bottomTextField = new TextField();
+	Button cancelButton = new Button("Annuleren");
+	Button acceptButton = new Button("Ok");
 	
-	public InstellingenDialoog(Stage owner, int b, int h) {
+	public InstellingenDialoog(Stage owner) {
 		super(StageStyle.UTILITY);
 		refStage = owner;
 		initOwner(owner);
 		initModality(Modality.WINDOW_MODAL);
 		this.setResizable(false);
-		HBox hb = new HBox(5);
+		HBox hbox = new HBox(5);
 		
-		Label hoogte = new Label("Hoogte:");
-		hoogte.setPrefWidth(250);
-		Label breedte = new Label("Breedte:");
-		breedte.setPrefWidth(250);
+		Label topLabel = new Label("Hoogte:");
+		topLabel.setPrefWidth(250);
+		Label bottomLabel = new Label("Breedte:");
+		bottomLabel.setPrefWidth(250);
 		
-		annuleren.setOnAction(e -> this.hide());
+		cancelButton.setOnAction(e -> this.hide());
 		
-		ok.setOnAction(e -> { 
+		acceptButton.setOnAction(e -> { 
 				this.hide();
 		});
-		ok.setPrefWidth(75);
+		acceptButton.setPrefWidth(75);
 		
-		VBox controlBox = new VBox(10);
-		hb.getChildren().addAll(annuleren, ok);
-		hb.setAlignment(Pos.BOTTOM_RIGHT);
+		VBox controlBox = new VBox(15);
+		hbox.getChildren().addAll(cancelButton, acceptButton);
+		hbox.setAlignment(Pos.BOTTOM_RIGHT);
 		controlBox.setAlignment(Pos.CENTER);
-		controlBox.getChildren().addAll(hoogte, tf1, breedte, tf2, hb);
+		controlBox.getChildren().addAll(topLabel, topTextField, bottomLabel, bottomTextField, hbox);
 		controlBox.setPadding(new Insets(15));
+
 		Scene scene = new Scene(controlBox);
 		this.setScene(scene);
-
 	}
 	
 	public void Melding() {
-		InstellingenDialoog al = new InstellingenDialoog(refStage, 300, 300);
+		InstellingenDialoog al = new InstellingenDialoog(refStage);
 		al.showAndWait();
-	}
-
-	public int getBreedte() {
-		return Integer.parseInt(tf1.getText());
-	}
-	
-	public int getHoogte() {
-		return Integer.parseInt(tf2.getText());
 	}
 
 }

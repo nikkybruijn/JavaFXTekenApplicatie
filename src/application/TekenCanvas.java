@@ -4,18 +4,18 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 
 public class TekenCanvas extends Canvas {
-	private LintBox box;
+	private static final int xCoordinate = 5;
+	private static final int yCoordinate = 5;
 	
-	public TekenCanvas(LintBox hL, int breedte, int hoogte) {
-		super(breedte, hoogte);
-		box = hL;
+	public TekenCanvas(LintBox hL, int width, int height) {
+		super(width, height);
 		GraphicsContext gc = this.getGraphicsContext2D();
-		gc.strokeRect(5, 5, breedte - 9, hoogte - 10);
+		gc.strokeRect(xCoordinate, yCoordinate, width - 9, height - 10);
 
 		this.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
 				gc.beginPath();
-				gc.setStroke(hL.getKleur());
+				gc.setStroke(hL.getColor());
 			}
 		});
 
@@ -31,6 +31,5 @@ public class TekenCanvas extends Canvas {
 				gc.closePath();
 			}
 		});
-
 	}
 }
