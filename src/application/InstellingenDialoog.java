@@ -33,9 +33,7 @@ public class InstellingenDialoog extends Stage {
 		
 		cancelButton.setOnAction(e -> this.hide());
 		
-		acceptButton.setOnAction(e -> { 
-				this.hide();
-		});
+		acceptButton.setOnAction(e -> this.hide());
 		acceptButton.setPrefWidth(75);
 		
 		VBox controlBox = new VBox(15);
