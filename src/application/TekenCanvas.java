@@ -4,7 +4,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 
 public class TekenCanvas extends Canvas {
-	private static final int xCoordinate = 5;
+	private static final int XCOORDINATE = 5;
 	private static final int yCoordinate = 5;
 	
 	public TekenCanvas(LintBox hL, int width, int height) {
