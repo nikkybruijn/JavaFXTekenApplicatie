@@ -2,7 +2,11 @@ package application;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
+
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.FileChooser;
@@ -20,6 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class TekenApp extends Application {
+	private final static Logger LOGGER = Logger.getLogger(TekenApp.class.getName());
 	private InstellingenDialoog hetDialoog;
 	private TekenCanvas hetCanvas;
 	private LintBox hetLint;
@@ -80,7 +85,7 @@ public class TekenApp extends Application {
 		stage.show();
 	}
 	
-	private boolean afbeeldingOpslaan(boolean dialoogAltijdTonen) throws IOException{
+	private boolean afbeeldingOpslaan(boolean dialoogAltijdTonen) {
 		boolean imageSaved = false;
 		
 		if (huidigBestand == null || dialoogAltijdTonen) {
@@ -99,7 +104,7 @@ public class TekenApp extends Application {
         	try {
 				ImageIO.write(img2, "png", huidigBestand);
 			} catch (IOException e) {
-				throws e;
+				LOGGER.log(Level.SEVERE, "Error while saving image");
 			}
 		}
 		return imageSaved;
