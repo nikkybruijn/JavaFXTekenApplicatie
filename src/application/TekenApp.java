@@ -80,7 +80,7 @@ public class TekenApp extends Application {
 		stage.show();
 	}
 	
-	private boolean afbeeldingOpslaan(boolean dialoogAltijdTonen) {
+	private boolean afbeeldingOpslaan(boolean dialoogAltijdTonen) throws IOException{
 		boolean imageSaved = false;
 		
 		if (huidigBestand == null || dialoogAltijdTonen) {
@@ -99,7 +99,7 @@ public class TekenApp extends Application {
         	try {
 				ImageIO.write(img2, "png", huidigBestand);
 			} catch (IOException e) {
-				e.printStackTrace();
+				throws e;
 			}
 		}
 		return imageSaved;
