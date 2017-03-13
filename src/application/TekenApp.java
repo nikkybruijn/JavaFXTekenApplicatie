@@ -24,7 +24,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
 public class TekenApp extends Application {
-	private final static Logger LOGGER = Logger.getLogger(TekenApp.class.getName());
+	private static final Logger LOGGER = Logger.getLogger(TekenApp.class.getName());
 	private InstellingenDialoog hetDialoog;
 	private TekenCanvas hetCanvas;
 	private LintBox hetLint;
@@ -104,7 +104,7 @@ public class TekenApp extends Application {
         	try {
 				ImageIO.write(img2, "png", huidigBestand);
 			} catch (IOException e) {
-				LOGGER.log(Level.SEVERE, "Error while saving image");
+				LOGGER.log(Level.SEVERE, "Error while saving image", e);
 			}
 		}
 		return imageSaved;
