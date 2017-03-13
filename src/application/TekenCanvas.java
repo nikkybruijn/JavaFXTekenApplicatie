@@ -5,12 +5,12 @@ import javafx.scene.input.MouseButton;
 
 public class TekenCanvas extends Canvas {
 	private static final int XCOORDINATE = 5;
-	private static final int yCoordinate = 5;
+	private static final int YCOORDINATE = 5;
 	
 	public TekenCanvas(LintBox hL, int width, int height) {
 		super(width, height);
 		GraphicsContext gc = this.getGraphicsContext2D();
-		gc.strokeRect(XCOORDINATE, yCoordinate, width - 9, height - 10);
+		gc.strokeRect(XCOORDINATE, YCOORDINATE, width - 9, height - 10);
 
 		this.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
