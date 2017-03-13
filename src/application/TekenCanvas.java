@@ -10,7 +10,7 @@ public class TekenCanvas extends Canvas {
 	public TekenCanvas(LintBox hL, int width, int height) {
 		super(width, height);
 		GraphicsContext gc = this.getGraphicsContext2D();
-		gc.strokeRect(xCoordinate, yCoordinate, width - 9, height - 10);
+		gc.strokeRect(XCOORDINATE, yCoordinate, width - 9, height - 10);
 
 		this.setOnMousePressed(event -> {
 			if (event.getButton() == MouseButton.PRIMARY) {
